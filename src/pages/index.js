@@ -45,6 +45,7 @@ export default function Certification() {
     }
   };
 
+  //認証開始
   const sendFormData = async (event) => {
     event.preventDefault(); 
     console.log("sedFormData関数が呼び出されました");
