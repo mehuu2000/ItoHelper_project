@@ -22,7 +22,7 @@ export default function Certification() {
   const signUpUser = async (name, password) => {
     console.log("signUpUser関数が呼び出されました");
     if(!isPassword) {
-      password = null;
+      password = "";
     }
     try {
       const response = await fetch('/api/signup', {
@@ -56,7 +56,7 @@ export default function Certification() {
         console.log("ログイン処理開始");
         //ログイン処理
         const responce = await signIn('credentials', {
-          redirect: true,
+          redirect: false,
           username: name,
           password: isPassword ? password : "",
         });
@@ -79,7 +79,7 @@ export default function Certification() {
           
           console.log("ログイン処理を開始します");
           const loginRes = await signIn('credentials', {
-            redirect: true,
+            redirect: false,
             username: name,
             password: isPassword ? password : "",
           });
