@@ -1,0 +1,124 @@
+.view {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    overflow: scroll;
+}
+
+.img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.h1 {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.explain1 {
+    font-size: 12px;
+    margin-bottom: 5px;
+    word-wrap: break-word; /* 長い単語を折り返して改行 */
+    overflow-wrap: break-word; /* 文字が枠外に溢れないようにする */
+}
+.explain2 {
+    font-size: 12px;
+    margin-bottom: 5%;
+    text-decoration: underline;
+    word-wrap: break-word; /* 長い単語を折り返して改行 */
+    overflow-wrap: break-word; /* 文字が枠外に溢れないようにする */
+}
+
+.content {
+    height: auto;
+    width: calc(100vw - 30px);
+    padding: 20px;
+    border: 3px solid rgb(255, 149, 0);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 10%;
+}
+
+.formConteiner {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.truePassword {
+    height: auto;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    flex-direction: column;
+}
+
+.nopsButton {
+    padding: 0 3px 0 3px;
+    margin-bottom: 0px;
+    border-radius: 20px 20px 0 0;
+    background-color: rgb(255, 149, 0);
+}
+
+.yespsButton {
+    height: auto;
+    width: 60%;
+    padding: 5px;
+    border-radius: 20px;
+    margin-top: 5px;
+    border: 2px solid rgba(255, 149, 0, 0.9);
+}
+
+.dicision {
+    height: auto;
+    width: 70%;
+    display: flex;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup {
+    flex: 1;
+    height: 100%;
+    padding: 2px;
+    margin-right: 10px;
+    border-radius: 20px;
+    background-color: rgba(255, 149, 0, 0.9);
+    white-space: nowrap;
+    text-align: center;
+}
+.skip {
+    flex: 1;
+    height: 100%;
+    padding: 2px;
+    border-radius: 20px;
+    border: 2px solid rgb(255, 149, 0);
+    white-space: nowrap;
+    text-align: center;
+}
+
+.toLogin {
+    margin-top: 20px;
+    font-size: 12px;
+}

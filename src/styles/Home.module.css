@@ -1,0 +1,9 @@
+.h1, .explain, .button {
+    font-size: 20px;
+}
+
+.view {
+    min-height: 100vw;
+    min-width: 100vh;
+    background-color: rgba(209, 255, 193, 0.696);
+}

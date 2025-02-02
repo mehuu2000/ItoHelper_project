@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    env_file:
+      - .env.docker
+      
+
+  db:
+    image: postgres:13
+    container_name: my_postgres_container
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: IHPkv2m3lee
+      POSTGRES_DB: ItoHelper_database
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # データを永続化
+
+volumes:
+  postgres_data:
