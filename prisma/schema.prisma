@@ -1,0 +1,34 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model History {
+  id        String   @id @default(uuid())
+  userId    String
+  theme     String?  @default("テーマ未設定")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  contents  Card[]
+}
+
+model Card {
+  id        String  @id @default(uuid())
+  content   String
+  order     Int
+  historyId String
+  history   History @relation(fields: [historyId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String   @unique
+  hashPassword String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

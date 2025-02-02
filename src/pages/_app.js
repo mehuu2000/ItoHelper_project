@@ -1,5 +1,12 @@
-import "@/styles/globals.css";
+import "../styles/globals.css";
+import OrientationLock from "../components/OrientationLock";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
+export default function MyApp({ Component, pageProps }) {
+    return (
+      <SessionProvider session={pageProps.session}>  {/* SessionProvider を追加 */}
+        <OrientationLock />
+        <Component {...pageProps} />
+      </SessionProvider>
+    );
+  }
