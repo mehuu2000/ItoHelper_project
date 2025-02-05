@@ -1,0 +1,29 @@
+.header {
+    font-size: 16px;
+    width: 100vw;
+    height: 48px;
+    background-color: rgba(255, 149, 0, 0.7);
+    border: 2px solid rgb(255, 149, 0);
+    border-top: none;
+    border-radius: 0 0 40px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 0 15px 0 15px;
+    color: rgb(255, 244, 233);
+}
+
+.islogin {
+    font-size: 12px;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px 8px 5px 8px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}

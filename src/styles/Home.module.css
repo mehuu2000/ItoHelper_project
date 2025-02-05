@@ -3,7 +3,103 @@
 }
 
 .view {
-    min-height: 100vw;
-    min-width: 100vh;
-    background-color: rgba(209, 255, 193, 0.696);
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    overflow: hidden;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header {
+    font-size: 16px;
+    width: 100vw;
+    height: 3rem;
+    background-color: rgba(255, 149, 0, 0.7);
+    border: 2px solid rgb(255, 149, 0);
+    border-top: none;
+    border-radius: 0 0 40px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 0 15px 0 15px;
+    color: rgb(255, 244, 233);
+}
+
+.islogin {
+    font-size: 12px;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px 8px 5px 8px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.content {
+    width: 100%;
+    flex-grow: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 40px;
+    font-size: 16px;
+}
+
+.h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.kind {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.contena {
+    height: 200px;
+    width: 200px;
+    border: 1px solid rgb(255, 149, 0);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.contena:hover {
+    cursor: pointer;
+    transform: translateY(-5px); /* 要素を少し持ち上げる */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 下に影を追加 */
+}
+
+.p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (orientation: landscape) {
+    .content {
+        flex-direction: row; /* 横並び */
+    }
+}
+
+@media (orientation: portrait) {
+    .view {
+        overflow: auto;
+        display: block;
+    }
+    .content {
+        flex-direction: column; /* 縦並び */
+        overflow: scroll;
+        padding-top: 20px;
+    }
 }
