@@ -1,0 +1,9 @@
+.view {
+    width: 100%;
+    height: calc(100vh - 48px - 48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: white;
+}
