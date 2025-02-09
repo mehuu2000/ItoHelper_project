@@ -11,5 +11,22 @@
     align-items: center;
     flex-direction: row;
     color: rgb(255, 149, 0);
-    padding: 10px;
+    padding: 5px 30px;
+    overflow: hidden;
+}
+
+.add {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(255, 149, 0);
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 3px 5px 3px 0;
+    color: white;
+    background-color: rgb(255, 149, 0);
+}
+
+.span {
+    margin: 1px 0 0 0;
 }
