@@ -36,7 +36,9 @@
     flex-grow: 1;
     margin-bottom: 10px;
     padding: 0 10px;
-    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* 追加: iOSでのスムーズスクロール */
 }
 
 .card {
@@ -53,6 +55,14 @@
     flex-direction: column;
     gap: 5px;
     padding: 5px;
+    touch-action: none;
+    user-select: none;
+    cursor: pointer; /* 追加: カーソルをポインターに */
+    transition: opacity 0.2s; /* 追加: アニメーション効果 */
+}
+.card[data-dragging="true"] {
+    opacity: 0.8;
+    cursor: grabbing;
 }
 
 .upright {
