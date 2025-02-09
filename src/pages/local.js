@@ -14,11 +14,16 @@ export default function Local() {
     const [cards, setCards] = useState(["妄想世界での小鳥遊六花", "リムル", "アクセラレータ", "レミリア", "さいたま", "ギルガメッシュ", "アリア", "サカツキ 美優"]);
     const [isDelete, setIsDelete] = useState(false);
     const [selectDelete, setSelectDelete] = useState([]); //配列のidが入る
-    
+
     const handleDelete = () => {
         const reMakeCards = cards.filter(card => !selectDelete.includes(card));
         setCards(reMakeCards); 
         setSelectDelete([]); 
+    }
+
+    const handleDeleteCansel = () => {
+        setIsDelete(!isDelete);
+        setSelectDelete([]);
     }
 
     return (
@@ -29,6 +34,8 @@ export default function Local() {
                     cards={cards} 
                     setCards={setCards}
                     isDelete={isDelete}
+                    selectDelete={selectDelete}
+                    setSelectDelete={setSelectDelete}
                 />
                 <Footer 
                     cards={cards} 
@@ -36,6 +43,7 @@ export default function Local() {
                     isDelete={isDelete}
                     setIsDelete={setIsDelete}
                     handleDelete={handleDelete}
+                    handleDeleteCansel={handleDeleteCansel}
                 />
             </div>
         </main>

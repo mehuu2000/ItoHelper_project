@@ -42,6 +42,19 @@
     background-color: rgb(255, 149, 0);
 }
 
+.deletes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .span {
     margin: 1px 0 0 0;
 }
