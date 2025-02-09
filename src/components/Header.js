@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../styles/components_styles/Header.module.css';
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import Popup from '../components/Popup';
 
@@ -16,11 +16,12 @@ export default function Header({gameName}) {
     const router = useRouter();
     
     const { data: session, status } = useSession();
-    const [currentUser, setCurrentUser] = useState(null);
-    const [isClient, setIsClient] = useState(false);
+    const [ currentUser, setCurrentUser] = useState(null);
+    // const [ isClient, setIsClient] = useState(false);
+    const [ topic, setTopic ] = useState("");
 
-    const [showPopup, setShowPopup] = useState(false);
-    const [popupContent, setPopupContent] = useState("");
+    // const [showPopup, setShowPopup] = useState(false);
+    // const [popupContent, setPopupContent] = useState("");
 
     const handleBack = () => {
         router.back(); //ひとつ前に戻る
@@ -30,15 +31,28 @@ export default function Header({gameName}) {
         router.push("/");
     }
 
+    const spanRef = useRef(null);
+    const inputRef = useRef(null);
+
     useEffect(() => {
         if (status === "authenticated") {
             setCurrentUser(session.user); // 認証されていれば、currentUserを設定
         }
     }, [session, status]);
 
-    const handlePopClose = () => {
-        setShowPopup(false);
-    };
+    // const handlePopClose = () => {
+    //     setShowPopup(false);
+    // };
+
+    const handleChangeTopic = (e) => {
+        setTopic(e.target.value);
+    }
+    useEffect(() => {
+        if (spanRef.current && inputRef.current) {
+            // hiddenSpan の幅を取得して input の幅を更新
+            inputRef.current.style.width = `${spanRef.current.offsetWidth + 10}px`;
+        }
+    }, [topic]);
 
     //メニュー
     const [anchorEl, setAnchorEl] = useState(null);
@@ -94,8 +108,22 @@ export default function Header({gameName}) {
 
     return (
         <header className={styles.header}>
-            <button onClick={handleBack}><KeyboardReturnIcon sx={{ color: 'white' }} /></button>
-            <h1 className={styles.h1}>Ito Helper | <span>{gameName}</span></h1>
+            <button onClick={handleBack}><KeyboardReturnIcon sx={{ width: '25px', height: '25px', color: 'white' }} /></button>
+            <div className={styles.title}>
+                <span ref={spanRef} className={styles.hiddenSpan} aria-hidden="true">
+                    {topic || "お題"}
+                </span>
+                
+                <input 
+                    ref={inputRef}
+                    type="text"
+                    placeholder="お題"
+                    className={styles.input}
+                    value={topic}
+                    onChange={handleChangeTopic}
+                />
+                <span className={styles.rule}> | {gameName}</span>
+            </div>
             <div className={styles.menu}>
                 <p className={styles.islogin}>
                     {currentUser ? "ログイン中" : "未ログイン"}
@@ -107,7 +135,7 @@ export default function Header({gameName}) {
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
                 >
-                    <MenuIcon sx={{ color: 'white' }}/>
+                    <MenuIcon sx={{ width: '25px', height: '25px',color: 'white' }}/>
                 </Button>
                 <Menu
                     id="basic-menu"

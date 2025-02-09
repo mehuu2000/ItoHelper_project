@@ -22,14 +22,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-/* body.lock-landscape {
-  overflow: auto;
-} */
-
-/* 縦向きの場合、90度回転させ横向きにする
-@media screen and (orientation: portrait) {
-  body.lock-landscape {
-    transform: rotate(90deg);
-  }
-} */

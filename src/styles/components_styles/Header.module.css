@@ -14,11 +14,54 @@
     color: rgb(255, 244, 233);
 }
 
+.title {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: scroll;
+    margin: 0 10px 0 10px;
+}
+
+.hiddenSpan {
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    font-size: 16px;
+    font-family: inherit;
+    padding: 0;
+}
+
+.input {
+    /* min-width: 30px; */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-family: inherit;
+    text-align: center;
+    min-width: 50px;
+    width: auto;
+    overflow: scroll;
+}
+.input::placeholder {
+    color: white;
+    opacity: 0.8; /* 一部のブラウザではデフォルトで透明度が低いので、確実に白くする */
+    border-bottom: 1px solid white;
+}
+.input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .islogin {
+    width: calc(5rem);
     font-size: 12px;
     border: 1px solid white;
     border-radius: 20px;
     padding: 5px 8px 5px 8px;
+    text-align: center;
 }
 
 .menu {

@@ -6,6 +6,7 @@ import { useState } from "react";
 import styles from "../styles/Login.module.css";
 import Image from "next/image";
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
@@ -237,9 +238,9 @@ export default function Certification() {
                   </a>
                   </div>
                   <button className={styles.toLogin} onClick={changeSignup}>
-                    アカウントを登録していませんか？
+                    アカウントを登録していますか？
                     <span className="text-blue-400">
-                      ログイン
+                      サインアップ
                     </span>
                   </button>
                 <div />
