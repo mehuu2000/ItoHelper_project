@@ -55,7 +55,7 @@
     flex-direction: column;
     gap: 5px;
     padding: 5px;
-    touch-action: none;
+    touch-action: none;  
     user-select: none;
     cursor: pointer; /* 追加: カーソルをポインターに */
     transition: opacity 0.2s; /* 追加: アニメーション効果 */
@@ -93,5 +93,20 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     margin: 0 auto;
+}
+
+
+.deleteMode {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.deleteMode:hover {
+  background-color: rgba(255, 149, 0, 0.3);
+}
+
+.selected {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  border-color: rgb(255, 0, 0);
 }
 

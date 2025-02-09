@@ -4,11 +4,12 @@ import { IoAdd } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { BsQuestionCircle } from "react-icons/bs";
+import { TbCancel } from "react-icons/tb";
 import InfoIcon from '@mui/icons-material/Info';
 
 import toast, { Toaster } from "react-hot-toast";
 
-export default function Footer({ isDelete, setIsDelete, handleDelete }) {
+export default function Footer({ isDelete, setIsDelete, handleDelete, handleDeleteCansel }) {
     const handleClickDelete = () => {
         if(isDelete) {
             console.log("削除します");
@@ -25,7 +26,6 @@ export default function Footer({ isDelete, setIsDelete, handleDelete }) {
                 }
             );
         }
-
         setIsDelete(!isDelete);
     }
     return(
@@ -39,28 +39,43 @@ export default function Footer({ isDelete, setIsDelete, handleDelete }) {
                     <IoAdd size={30} style={{ color: "white" }}/>
                     <span className={styles.span}>カード追加</span>
                 </button>
-                <button onClick={handleClickDelete} className={`${styles.delete} ${isDelete ? styles.true : ''}`}>
+                <div className={styles.deletes}>
+                    <button onClick={handleClickDelete} className={`${styles.delete} ${isDelete ? styles.true : ''}`}>
+                        {isDelete ? (
+                            <MdDeleteOutline
+                                size={30} 
+                                style={{ 
+                                    color: isDelete ? "white" : "rgb(255, 149, 0)" 
+                                }} 
+                            />
+                        ) : (
+                            <MdOutlineDeleteSweep
+                                size={30} 
+                                style={{ 
+                                    color: isDelete ? "white" : "rgb(255, 149, 0)" 
+                                }} 
+                            />
+                        )}
+                        {isDelete ? (
+                            <span className={styles.span}>カード削除</span>
+                        ) : (
+                            <span className={styles.span}>カード選択</span>
+                        )}
+                    </button>
                     {isDelete ? (
-                        <MdDeleteOutline
-                            size={30} 
-                            style={{ 
-                                color: isDelete ? "white" : "rgb(255, 149, 0)" 
-                            }} 
-                        />
-                    ) : (
-                        <MdOutlineDeleteSweep
-                            size={30} 
-                            style={{ 
-                                color: isDelete ? "white" : "rgb(255, 149, 0)" 
-                            }} 
-                        />
-                    )}
-                    {isDelete ? (
-                        <span className={styles.span}>カード削除</span>
-                    ) : (
-                        <span className={styles.span}>カード選択</span>
-                    )}
-                </button>
+                        <button className={styles.cancelButton} onClick={handleDeleteCansel}>
+                            <div className={styles.cancel}>
+                                <TbCancel 
+                                    size={24} 
+                                    style={{ 
+                                        color: "rgb(255, 149, 0)" 
+                                    }} 
+                                />
+                                <span class="text-[8px]">キャンセル</span>
+                            </div>
+                        </button>
+                    ) : null}
+                </div>
                 <button>
                     <BsQuestionCircle size={25} style={{ color: "rgb(255, 149, 0)" }}/>
                 </button>
