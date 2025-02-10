@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect } from 'react';
 import styles from '../../styles/components_styles/typeLocal.module.css';
 import {
@@ -17,14 +19,18 @@ import {
   import { SortableCard } from './SortableCard';
 
   export default function TypeLocal({ cards, setCards, isDelete, selectDelete, setSelectDelete }) {
-    // useEffect(() => {
-    //     console.log(cards);
-    // }, [cards]);
+    useEffect(() => {
+        console.log(cards);
+    }, [cards]);
+    useEffect(() => {
+        console.log(isDelete);
+    }, [isDelete]);
     const sensors = useSensors(
         useSensor(PointerSensor, {
           activationConstraint: {
             delay: 250,
-            tolerance: 10,
+            tolerance: 0, //許容が0でその場で長押ししないとドラッグできない
+            // distance: 0,
           },
         }),
         useSensor(KeyboardSensor, {
@@ -33,7 +39,7 @@ import {
       );
   
       const handleDragEnd = (event) => {
-        if (isDelete) return; // 削除選択モード中はドラッグを無効化
+        if (isDelete) return; 
 
         const { active, over } = event;
         

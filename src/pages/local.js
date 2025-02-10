@@ -11,9 +11,9 @@ const TypeLocal = dynamic(() => import('../components/Local/TypeLocal'), {
 })
 
 export default function Local() {
-    const [cards, setCards] = useState(["妄想世界での小鳥遊六花", "リムル", "アクセラレータ", "レミリア", "さいたま", "ギルガメッシュ", "アリア", "サカツキ 美優"]);
+    const [cards, setCards] = useState(["妄想世界での小鳥遊六花", "リムル", "アクセラレータ", "レミリア", "さいたま", "ギルガメッシュ", "アリア", "サカツキ 美優", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"]);
     const [isDelete, setIsDelete] = useState(false);
-    const [selectDelete, setSelectDelete] = useState([]); //配列のidが入る
+    const [selectDelete, setSelectDelete] = useState([]); 
 
     const handleDelete = () => {
         const reMakeCards = cards.filter(card => !selectDelete.includes(card));
@@ -24,6 +24,15 @@ export default function Local() {
     const handleDeleteCansel = () => {
         setIsDelete(!isDelete);
         setSelectDelete([]);
+    }
+
+    const handleClear = () => {
+        setCards([]);
+        setSelectDelete([]); 
+    }
+
+    const fin = () => {
+        console.log("記録します");
     }
 
     return (
@@ -44,6 +53,8 @@ export default function Local() {
                     setIsDelete={setIsDelete}
                     handleDelete={handleDelete}
                     handleDeleteCansel={handleDeleteCansel}
+                    handleClear={handleClear}
+                    fin={fin}
                 />
             </div>
         </main>

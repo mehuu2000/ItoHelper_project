@@ -58,3 +58,7 @@
 .span {
     margin: 1px 0 0 0;
 }
+
+.cancelSpan {
+    font-size: 8px;
+}
