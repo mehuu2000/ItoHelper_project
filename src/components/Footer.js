@@ -5,11 +5,22 @@ import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineDeleteSweep } from "react-icons/md";
 import { BsQuestionCircle } from "react-icons/bs";
 import { TbCancel } from "react-icons/tb";
+import { RiResetLeftFill } from "react-icons/ri";
+import { ImSwitch } from "react-icons/im";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import InfoIcon from '@mui/icons-material/Info';
 
 import toast, { Toaster } from "react-hot-toast";
 
-export default function Footer({ isDelete, setIsDelete, handleDelete, handleDeleteCansel }) {
+export default function Footer({ isDelete, setIsDelete, handleDelete, handleDeleteCansel, handleClear, fin }) {
+    //確認するかどうか
+    const [isCheck, setIsCheck] = useState(true);
+    const handleSwitchChange = (event) => {
+        setIsCheck(event.target.checked);
+    };
+    ////////////
+
     const handleClickDelete = () => {
         if(isDelete) {
             console.log("削除します");
@@ -27,6 +38,35 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             );
         }
         setIsDelete(!isDelete);
+    }
+
+    const handleClickClear = () => {
+        if(isCheck) {
+            const isConfirmed = window.confirm("本当にクリアしてもよろしいですか？");
+
+            if (isConfirmed) {
+                handleClear();
+            } else {
+                console.log("キャンセルされました");
+            }
+        } else {
+            handleClear();
+        }
+    }
+
+    const handleClickFin = () => {
+        if(isCheck) {
+            const isConfirmed = window.confirm("ゲームは終了しましたか？また、このゲームを記録しますか？");
+
+            if (isConfirmed) {
+                fin();
+            } else {
+                console.log("キャンセルされました");
+            }
+        } else {
+            fin()
+        }
+        
     }
     return(
         <>
@@ -71,11 +111,39 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
                                         color: "rgb(255, 149, 0)" 
                                     }} 
                                 />
-                                <span class="text-[8px]">キャンセル</span>
+                                <span className={styles.cancelSpan}>キャンセル</span>
                             </div>
                         </button>
                     ) : null}
                 </div>
+                <div className={styles.delete} onClick={handleClickClear}>
+                    <RiResetLeftFill size={25} style={{ color: "rgb(255, 149, 0)" }}/>
+                    <span className={styles.span}>リセット</span>
+                </div>
+                <div className={styles.delete} onClick={handleClickFin}>
+                    <ImSwitch size={25} style={{ color: "rgb(255, 149, 0)" }}/>
+                    <span className={styles.span}>終了</span>
+                </div>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={isCheck}
+                            onChange={handleSwitchChange}
+                            sx={{
+                                '& .MuiSwitch-switchBase.Mui-checked': {
+                                    color: 'rgb(255, 149, 0)',  // チェック部分のカラー
+                                },
+                                '& .MuiSwitch-track': {
+                                    backgroundColor: isCheck ? 'rgb(255, 149, 0) !important' : 'rgba(255, 149, 0, 0.3) !important',  // トラック部分のカラー
+                                },
+                                '& .MuiSwitch-rail': {
+                                    backgroundColor: 'rgba(255, 149, 0, 0.3) !important', // レール部分のカラー
+                                },
+                            }}
+                        />
+                    }
+                    label="確認"
+                />
                 <button>
                     <BsQuestionCircle size={25} style={{ color: "rgb(255, 149, 0)" }}/>
                 </button>

@@ -139,6 +139,7 @@ export default function Certification() {
               alt="ロゴ" 
               width={200} 
               height={150}
+              priority={true}
             />
           </div>
           {LS_Choose === "login" ? (

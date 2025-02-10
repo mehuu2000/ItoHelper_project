@@ -76,11 +76,14 @@ export default function Header({gameName}) {
 
     //フルスクリーン解除
     const exitFullscreen = () => {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-        setIsFullscreen(false);
-        document.exitFullscreen();
-    }
+        // フルスクリーン状態かどうかを確認
+        if (document.fullscreenElement) {
+            // フルスクリーンモードがアクティブな場合のみ解除
+            document.exitFullscreen();
+            setIsFullscreen(false);
+        } else {
+            setIsFullscreen(false);
+        }
     };
     ////
 
