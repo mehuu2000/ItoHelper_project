@@ -16,7 +16,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 //react-hot-toast
 import toast, { Toaster } from "react-hot-toast";
-import { Alarm } from "@mui/icons-material";
 
 export default function Home() {
   const router = useRouter();
@@ -34,7 +33,7 @@ export default function Home() {
       } else if (id === 2) {
         setPopupContent("アカイイトの説明文です。");
       } else if (id === 3) {
-        setPopupContent("汎用(ローカルルール)の説明文です。");
+        setPopupContent("レインボーの説明文です。");
       }
       setShowPopup(true); // ポップアップを開く
   };
@@ -208,7 +207,7 @@ export default function Home() {
                     <button onClick={() => handlePopOpen(2)}>概要</button>
                 </div>
                 <div className={styles.kind}>
-                    <h2 className={styles.h2}>汎用(ローカルルール)</h2>
+                    <h2 className={styles.h2}>レインボー</h2>
                     <button className={styles.contena} onClick={() => sendRoute(3)}></button>
                     <button onClick={() => handlePopOpen(3)}>概要</button>
                 </div>

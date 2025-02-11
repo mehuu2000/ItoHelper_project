@@ -18,13 +18,10 @@ import {
   } from '@dnd-kit/sortable';
   import { SortableCard } from './SortableCard';
 
-  export default function TypeLocal({ cards, setCards, isDelete, selectDelete, setSelectDelete }) {
+  export default function TypeLocal({ cards, setCards, isDelete, selectDelete, setSelectDelete, isInsert }) {
     useEffect(() => {
         console.log(cards);
     }, [cards]);
-    useEffect(() => {
-        console.log(isDelete);
-    }, [isDelete]);
     const sensors = useSensors(
         useSensor(PointerSensor, {
           activationConstraint: {
@@ -52,8 +49,9 @@ import {
         }
       };
       
+      //削除対象をisDeleteかisInsertがtrueなら選択可能に
       const handleCardClick = (card) => {
-        if (!isDelete) return;
+        if ((!isDelete && !isInsert) || (isDelete && isInsert)) return;
         
         setSelectDelete(prev => {
           if (prev.includes(card)) {

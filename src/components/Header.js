@@ -2,7 +2,6 @@ import React from 'react'
 import styles from '../styles/components_styles/Header.module.css';
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
-import { useSession } from "next-auth/react";
 import Popup from '../components/Popup';
 
 //MUI
@@ -12,13 +11,10 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-export default function Header({gameName}) {
+export default function Header({gameName, currentUser, status, theme, setTheme, openSetting}) {
     const router = useRouter();
-    
-    const { data: session, status } = useSession();
-    const [ currentUser, setCurrentUser] = useState(null);
     // const [ isClient, setIsClient] = useState(false);
-    const [ topic, setTopic ] = useState("");
+    // const [ topic, setTopic ] = useState("");
 
     // const [showPopup, setShowPopup] = useState(false);
     // const [popupContent, setPopupContent] = useState("");
@@ -34,25 +30,20 @@ export default function Header({gameName}) {
     const spanRef = useRef(null);
     const inputRef = useRef(null);
 
-    useEffect(() => {
-        if (status === "authenticated") {
-            setCurrentUser(session.user); // 認証されていれば、currentUserを設定
-        }
-    }, [session, status]);
-
     // const handlePopClose = () => {
     //     setShowPopup(false);
     // };
 
     const handleChangeTopic = (e) => {
-        setTopic(e.target.value);
+        setTheme(e.target.value);
     }
     useEffect(() => {
         if (spanRef.current && inputRef.current) {
             // hiddenSpan の幅を取得して input の幅を更新
             inputRef.current.style.width = `${spanRef.current.offsetWidth + 10}px`;
         }
-    }, [topic]);
+        console.log(theme);
+    }, [theme]);
 
     //メニュー
     const [anchorEl, setAnchorEl] = useState(null);
@@ -61,7 +52,7 @@ export default function Header({gameName}) {
     setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
-    setAnchorEl(null);
+        setAnchorEl(null);
     };
     ////
 
@@ -104,9 +95,13 @@ export default function Header({gameName}) {
     };
     ////
 
-    if (status === "loading") {
-        return <p>読み込み中...</p>; // 読み込み中の表示
-    };
+    // if (status === "loading") {
+    //     return <p>読み込み中...</p>; // 読み込み中の表示
+    // };
+
+    const handleClickSetting = () => {
+        openSetting();
+    }
 
 
     return (
@@ -114,7 +109,7 @@ export default function Header({gameName}) {
             <button onClick={handleBack}><KeyboardReturnIcon sx={{ width: '25px', height: '25px', color: 'white' }} /></button>
             <div className={styles.title}>
                 <span ref={spanRef} className={styles.hiddenSpan} aria-hidden="true">
-                    {topic || "お題"}
+                    {theme || "お題"}
                 </span>
                 
                 <input 
@@ -122,14 +117,14 @@ export default function Header({gameName}) {
                     type="text"
                     placeholder="お題"
                     className={styles.input}
-                    value={topic}
+                    value={theme}
                     onChange={handleChangeTopic}
                 />
                 <span className={styles.rule}> | {gameName}</span>
             </div>
             <div className={styles.menu}>
                 <p className={styles.islogin}>
-                    {currentUser ? "ログイン中" : "未ログイン"}
+                    {status === "loading" ? "読み込み中" : currentUser ? "ログイン中" : "未ログイン"}
                 </p>
                 <Button
                     id="basic-button"
@@ -161,6 +156,9 @@ export default function Header({gameName}) {
                     </MenuItem>
                     <MenuItem onClick={handleClose}>
                         <button onClick={lockToLandscape}>横向きにする</button>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                        <button onClick={handleClickSetting}>設定</button>
                     </MenuItem>
                 </Menu>
             </div>
