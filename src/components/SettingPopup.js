@@ -9,10 +9,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { inputBaseClasses } from '@mui/material/InputBase';
 
 
-const SettingPopup = ({ open, onClose, isCheck, handleSwitchChange, isColor, handleSwitchColor, playerCount, setPlayerCount }) => {
-    useEffect(() => {
-        console.log(playerCount);
-    }, [playerCount]);
+const SettingPopup = ({ open, onClose, isCheck, handleSwitchChange, handleSwitchColor }) => {
     
     if (!open) return null;
   
@@ -23,9 +20,9 @@ const SettingPopup = ({ open, onClose, isCheck, handleSwitchChange, isColor, han
       }
     };
 
-    const handleChangePlayerCount = (e) => {
-        setPlayerCount(e.target.value);
-    }
+    // const handleChangePlayerCount = (e) => {
+    //     setPlayerCount(e.target.value);
+    // }
 
 
     return (
@@ -90,7 +87,7 @@ const SettingPopup = ({ open, onClose, isCheck, handleSwitchChange, isColor, han
                     label="削除・リセット・登録の際に確認をしますか?"
                 />
                 <p className={styles.p}>フルスクリーン・横画面が解除されることがあります</p>
-                <FormControlLabel
+                {/* <FormControlLabel
                     control={
                         <Switch
                             checked={isColor}
@@ -110,9 +107,9 @@ const SettingPopup = ({ open, onClose, isCheck, handleSwitchChange, isColor, han
                     }
                     label="参加者ごとに色をつける"
                 />
-                {isColor && (<p className={styles.p}>参加人数も入力してください</p>)}
+                {isColor && (<p className={styles.p}>参加人数も入力してください</p>)} */}
 
-                <TextField
+                {/* <TextField
                     id="standard-suffix-shrink"
                     label="人数"
                     variant="standard"
@@ -164,7 +161,7 @@ const SettingPopup = ({ open, onClose, isCheck, handleSwitchChange, isColor, han
                         },
                     }}
                 />
-                <p className={styles.p}>半角数字を入力してください</p>
+                <p className={styles.p}>半角数字を入力してください</p> */}
             </div>
           </div>
         </div>

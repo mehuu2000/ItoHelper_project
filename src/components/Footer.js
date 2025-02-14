@@ -7,8 +7,8 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { TbCancel } from "react-icons/tb";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ImSwitch } from "react-icons/im";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Switch from '@mui/material/Switch';
 import InfoIcon from '@mui/icons-material/Info';
 
 import toast, { Toaster } from "react-hot-toast";
@@ -23,13 +23,13 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
 
     const handleClickInsert = () => {
         if(isInsert) {
-            console.log("挿入します");
+            // console.log("挿入します");
             handleInsertCard();
         } else {
             if(isDelete) {
                 handleDeleteCansel();
             }
-            console.log("挿入場所を選択します");
+            // console.log("挿入場所を選択します");
             toast(
                 <>
                     挿入する場所の隣接カード、もしくは端のカードを選択してください
@@ -49,11 +49,11 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
                 const isConfirmed = window.confirm("本当に削除してもよろしいですか？");
     
                 if (isConfirmed) {
-                    console.log("削除します");
+                    // console.log("削除します");
                     handleDelete();
                 } else {
                     handleDeleteCansel();
-                    console.log("キャンセルされました");
+                    // console.log("キャンセルされました");
                 }
             } else {
                 handleDelete();
@@ -62,7 +62,7 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             if(isInsert) {
                 handleInsertCansel();
             }
-            console.log("削除対処を選びます");
+            // console.log("削除対処を選びます");
             toast(
                 <>
                     削除するカードを選択してください
@@ -83,7 +83,7 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             if (isConfirmed) {
                 handleClear();
             } else {
-                console.log("キャンセルされました");
+                // console.log("キャンセルされました");
             }
         } else {
             handleClear();
@@ -97,7 +97,7 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             if (isConfirmed) {
                 fin();
             } else {
-                console.log("キャンセルされました");
+                // console.log("キャンセルされました");
             }
         } else {
             fin()
@@ -112,9 +112,28 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             />
             <footer className={styles.footer}>
                 <div className={styles.insert}>
-                    <button className={styles.add} onClick={handleClickInsert} disabled={isInserting}>
-                        <IoAdd size={30} style={{ color: "white" }}/>
-                        <span className={styles.span}>カード追加</span>
+                    <button className={`${styles.add} ${isInsert ? styles.true : ''}`} onClick={handleClickInsert} disabled={isInserting}>
+                        {isInsert ? (
+                            <IoAdd 
+                                size={30} 
+                                style={{ 
+                                    color: isDelete ? "rgb(255, 149, 0)" : "white" 
+                                 }}
+                            />
+                        ) : (
+                            <IoAdd 
+                                size={30} 
+                                style={{ 
+                                    color: isDelete ? "white" : "rgb(255, 149, 0)" 
+                                }}
+                            />
+                        )}
+                        
+                        {isInsert ? (
+                            <span className={styles.span}>カード追加</span>
+                        ) : (
+                            <span className={styles.span}>カード作成</span>
+                        )}
                     </button>
                     {isInsert ? (
                         <button className={styles.cancelButton} onClick={handleInsertCansel}>

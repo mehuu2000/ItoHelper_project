@@ -19,9 +19,9 @@ import {
   import { SortableCard } from './SortableCard';
 
   export default function TypeLocal({ cards, setCards, isDelete, selectDelete, setSelectDelete, isInsert }) {
-    useEffect(() => {
-        console.log(cards);
-    }, [cards]);
+    // useEffect(() => {
+    //     console.log(cards);
+    // }, [cards]);
     const sensors = useSensors(
         useSensor(PointerSensor, {
           activationConstraint: {

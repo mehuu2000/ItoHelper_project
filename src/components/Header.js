@@ -2,7 +2,7 @@ import React from 'react'
 import styles from '../styles/components_styles/Header.module.css';
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
-import Popup from '../components/Popup';
+// import Popup from '../components/Popup';
 
 //MUI
 import MenuIcon from '@mui/icons-material/Menu';
@@ -42,7 +42,7 @@ export default function Header({gameName, currentUser, status, theme, setTheme, 
             // hiddenSpan の幅を取得して input の幅を更新
             inputRef.current.style.width = `${spanRef.current.offsetWidth + 10}px`;
         }
-        console.log(theme);
+        // console.log(theme);
     }, [theme]);
 
     //メニュー
@@ -87,9 +87,9 @@ export default function Header({gameName, currentUser, status, theme, setTheme, 
     
     try {
         await screen.orientation.lock("landscape");
-        console.log("横向きにしました");
+        // console.log("横向きにしました");
     } catch (error) {
-        console.error("横向きの変更に失敗しました:", error);
+        // console.error("横向きの変更に失敗しました:", error);
         alert("横向きにできませんでした。あなたのデバイス設定で画面ロックを解除し、ご自分で横向きにしてください");
     }
     };

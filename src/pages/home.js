@@ -10,7 +10,7 @@ import Popup from '../components/Popup';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import CheckIcon from '@mui/icons-material/Check';
+// import CheckIcon from '@mui/icons-material/Check';
 import InfoIcon from '@mui/icons-material/Info';
 import MenuIcon from '@mui/icons-material/Menu';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
@@ -117,9 +117,9 @@ export default function Home() {
     //   }
   
       await screen.orientation.lock("landscape");
-      console.log("横向きにしました");
+      // console.log("横向きにしました");
     } catch (error) {
-      console.error("横向きの変更に失敗しました:", error);
+      // console.error("横向きの変更に失敗しました:", error);
       alert("横向きにできませんでした。あなたのデバイス設定で画面ロックを解除し、ご自分で横向きにしてください");
     }
   };
@@ -129,10 +129,13 @@ export default function Home() {
     switch(id) {
       case 1:
         router.push(`/kumonoito`);
+        break;
       case 2:
         router.push(`/akaiito`);
+        break;
       case 3:
         router.push(`/local`);
+        break;
     }
   }
   
