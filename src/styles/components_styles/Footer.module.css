@@ -22,9 +22,8 @@
     border: 1px solid rgb(255, 149, 0);
     border-radius: 10px;
     font-size: 16px;
-    padding: 3px 5px 3px 0;
-    color: white;
-    background-color: rgb(255, 149, 0);
+    padding: 3px 5px 3px 5px;
+    color: rgb(255, 149, 0);
 }
 
 .delete {
@@ -40,6 +39,12 @@
 .true {
     color: white;
     background-color: rgb(255, 149, 0);
+}
+
+.insert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .deletes {

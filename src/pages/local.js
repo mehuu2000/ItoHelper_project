@@ -3,7 +3,6 @@ import Header from '../components/Header';
 // import TypeLocal from '../components/Local/TypeLocal';
 import Footer from '../components/Footer';
 import styles from '../styles/local.module.css';
-import Head from "next/head";
 import dynamic from 'next/dynamic'
 import { useSession } from "next-auth/react";
 
@@ -14,7 +13,7 @@ const TypeLocal = dynamic(() => import('../components/Local/TypeLocal'), {
 })
 
 export default function Local() {
-    const [cards, setCards] = useState(["犬", "ライオン", "車", "バス", "家", "アフリカゾウ", "恐竜（ティラノサウルス）", "コンテナ船", "ビル（ブルジュ・ハリファ）", "飛行機（ボーイング747）", "クジラ", "エベレスト山", "太陽", "銀河系", "宇宙"]);
+    const [cards, setCards] = useState([]);
     const [isDelete, setIsDelete] = useState(false);
     const [selectDelete, setSelectDelete] = useState([]); 
     const [ theme, setTheme ] = useState("");
@@ -23,8 +22,6 @@ export default function Local() {
     const [isInserting, setIsInserting] = useState(false);
     const [insertPosition, setInsertPosition] = useState(null);
     const [isSetting, setIsSetting] = useState(false);
-    const [isColor, setIsColor] = useState(false);
-    const [playerCount, setPlayerCount] = useState("");
 
     const [isCheck, setIsCheck] = useState(true);
     const handleSwitchChange = (event) => {
@@ -35,14 +32,14 @@ export default function Local() {
     };
 
     useEffect(() => {
-            console.log(`isInsert: ${isInsert}`);
-            console.log(`isDelete: ${isDelete}`);
-            console.log(`isInserting: ${isInserting}`);
-            console.log("----------------------");
+            // console.log(`isInsert: ${isInsert}`);
+            // console.log(`isDelete: ${isDelete}`);
+            // console.log(`isInserting: ${isInserting}`);
+            // console.log("----------------------");
     }, [isDelete, isInsert, isInserting]);
 
     useEffect(() => {
-        console.log(`insertPosition: ${insertPosition}`)
+        // console.log(`insertPosition: ${insertPosition}`)
     }, [insertPosition]);
 
     const openSetting = () => {
@@ -90,9 +87,12 @@ export default function Local() {
     // 挿入処理の開始
     const handleInsertStart = () => {
         const indexes = selectDelete.map(item => cards.indexOf(item)).sort((a, b) => a - b);
-        console.log(indexes);
+        // console.log(indexes);
     
-        if (indexes.length === 1) {
+        if (indexes.length === 0 && cards.length === 0) {
+            setInsertPosition(0); // 左端に挿入
+            setIsInserting(true);
+        } else if (indexes.length === 1) {
             const index = indexes[0];
             if (index === 0) {
                 setInsertPosition(0); // 左端に挿入
@@ -101,7 +101,7 @@ export default function Local() {
                 setInsertPosition(cards.length); // 右端に挿入
                 setIsInserting(true);
             } else {
-                console.log("端のカードではありません");
+                // console.log("端のカードではありません");
                 handleInsertCansel();
                 // return;
             }
@@ -111,12 +111,12 @@ export default function Local() {
                 setInsertPosition(index2); // 隣り合っているなら間に挿入
                 setIsInserting(true);
             } else {
-                console.log("選択された要素が隣接していません。");
+                // console.log("選択された要素が隣接していません。");
                 handleInsertCansel();
                 // return;
             }
         } else {
-            console.log("二つまで選択できます");
+            // console.log("二つまで選択できます");
             handleInsertCansel();
         }
     
@@ -129,7 +129,7 @@ export default function Local() {
     // 完了ボタンを押したときの挿入処理
     const handleInsertConfirm = () => {
         if (!newValue) {
-            console.log("値を入力してください");
+            // console.log("値を入力してください");
             return;
         };
 
@@ -145,12 +145,12 @@ export default function Local() {
 
     const fin = async () => {
         if (!currentUser || !currentUser.id) {
-            console.error("ユーザーが認証されていない、またはIDが取得できません。", currentUser);
+            // console.error("ユーザーが認証されていない、またはIDが取得できません。", currentUser);
             return { error: "ユーザーが認証されていません。" };
         }
 
         const currentId = currentUser.id;
-        console.log("送信データ:", { currentId, game: "local", theme, cards });
+        // console.log("送信データ:", { currentId, game: "local", theme, cards });
         
         try {
             const response = await fetch('/api/makeGame', {
@@ -165,10 +165,10 @@ export default function Local() {
             if (!response.ok) {
                 throw new Error(data.error || "登録に失敗しました。");
             }
-            console.log("ゲーム履歴の登録成功:", data.history);
+            // console.log("ゲーム履歴の登録成功:", data.history);
             return data;
         } catch (error) {
-            console.error("ゲーム登録エラー:", error);
+            // console.error("ゲーム登録エラー:", error);
             return { error: error.message || "サーバーエラー" };
         }
     }
@@ -197,7 +197,7 @@ export default function Local() {
                 />
                 {/* 挿入モード時に表示する入力フォーム */}
                 {isInserting && (
-                    <div>
+                    <div className={styles.insertPopup}>
                         <input 
                             type="text" 
                             value={newValue} 
@@ -228,12 +228,9 @@ export default function Local() {
                  <SettingPopup 
                     open={isSetting} 
                     onClose={closeSetting} 
-                    isColor={isColor} 
                     handleSwitchColor={handleSwitchColor}
                     isCheck={isCheck}
                     handleSwitchChange={handleSwitchChange}
-                    playerCount={playerCount}
-                    setPlayerCount={setPlayerCount}
                 />
             </div>
         </main>
