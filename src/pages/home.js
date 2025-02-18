@@ -60,7 +60,7 @@ export default function Home() {
             </>, 
             {
                 icon: <InfoIcon sx={{ color: 'green' }}/>,
-                duration: 12000 // 12000ミリ秒（12秒）表示
+                duration: 8000 // 12000ミリ秒（12秒）表示
             }
         );
     }
@@ -138,6 +138,10 @@ export default function Home() {
         break;
     }
   }
+
+  const handleToHistory = () => {
+    router.push(`/history`);
+  }
   
   if (status === "loading") {
     return <p>読み込み中...</p>; // 読み込み中の表示
@@ -154,7 +158,7 @@ export default function Home() {
 
       <main>
       <Toaster
-        position="bottom-center"
+        position="top-left"
         reverseOrder={true}
       />
         <div className={styles.view}>
@@ -214,6 +218,9 @@ export default function Home() {
                     <button className={styles.contena} onClick={() => sendRoute(3)}></button>
                     <button onClick={() => handlePopOpen(3)}>概要</button>
                 </div>
+            </div>
+            <div className={styles.history}>
+                <button className={styles.toHistory} onClick={handleToHistory}>ゲーム履歴へ</button>
             </div>
         </div>
 

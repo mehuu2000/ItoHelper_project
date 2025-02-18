@@ -7,11 +7,16 @@ import { BsQuestionCircle } from "react-icons/bs";
 import { TbCancel } from "react-icons/tb";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ImSwitch } from "react-icons/im";
+import Popup from '../components/Popup';
+
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Switch from '@mui/material/Switch';
 import InfoIcon from '@mui/icons-material/Info';
 
 import toast, { Toaster } from "react-hot-toast";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Footer({ isDelete, setIsDelete, handleDelete, handleDeleteCansel, handleClear, fin, currentUser, isInsert, setIsInsert, handleInsertCard, handleInsertCansel, isInserting, isCheck }) {
     //確認するかどうか
@@ -20,6 +25,29 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
     //     setIsCheck(event.target.checked);
     // };
     ////////////
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupContent, setPopupContent] = useState(
+        <>
+            <div className={styles.popup}>
+                <br />
+                <h2>-カード作成-</h2>
+                <p>カード作成ボタンを押し、追加する場所の左右カードを2枚選択してください</p>
+                <p>端に置きたい場合はカード列の端のカードを1枚選択してください</p>
+                <p>初めての作成の場合は、何も選択せずにカード追加ボタンを押してください</p>
+                <p>選択できたらカード追加ボタンを押し、値を入力し完了を押してください</p>
+                <br />
+                <h2>-削除、リセット-</h2>
+                <p>直感でわかると思います</p>
+                <br />
+                <h2>-終了-</h2>
+                <p>ゲームの記録を保存します。 カードたちはリセットされません</p>
+                <br />
+                <h2 style={{color: 'red'}}>-カードの並べ替えについて-</h2>
+                <p style={{color: 'red'}}>カードを長押してからドラッグ&ドロップで並べ替えることができます</p>
+                <p style={{color: 'red'}}>その際に初め横にスライドせずに一度、上もしくは下にずらしてからドラッグしてください</p>
+            </div>
+        </>
+    );
 
     const handleClickInsert = () => {
         if(isInsert) {
@@ -32,11 +60,11 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             // console.log("挿入場所を選択します");
             toast(
                 <>
-                    挿入する場所の隣接カード、もしくは端のカードを選択してください
+                    選択してください
                 </>, 
                 {
                     icon: <InfoIcon sx={{ color: 'green' }}/>,
-                    duration: 5000 // 5000ミリ秒（5秒）表示
+                    duration: 2000, // 5000ミリ秒（5秒）表示
                 }
             );
         }
@@ -65,11 +93,11 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
             // console.log("削除対処を選びます");
             toast(
                 <>
-                    削除するカードを選択してください
+                    選択してください
                 </>, 
                 {
                     icon: <InfoIcon sx={{ color: 'green' }}/>,
-                    duration: 5000 // 5000ミリ秒（5秒）表示
+                    duration: 2000, // 5000ミリ秒（5秒）表示
                 }
             );
         }
@@ -104,30 +132,44 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
         }
         
     }
+
+    //ポップアップ
+    const handelOpenExplain = () => {
+        setShowPopup(true);
+    }
+    const handlePopClose = () => {
+        setShowPopup(false);
+      };
     return(
         <>
             <Toaster
-                position="top-center"
+                position="top-left"
                 reverseOrder={true}
             />
             <footer className={styles.footer}>
                 <div className={styles.insert}>
                     <button className={`${styles.add} ${isInsert ? styles.true : ''}`} onClick={handleClickInsert} disabled={isInserting}>
-                        {isInsert ? (
+                        {/* {isInsert ? (
                             <IoAdd 
                                 size={30} 
                                 style={{ 
-                                    color: isDelete ? "rgb(255, 149, 0)" : "white" 
+                                    color: isInsert ? "white" : "rgb(255, 149, 0)" 
                                  }}
                             />
                         ) : (
                             <IoAdd 
                                 size={30} 
                                 style={{ 
-                                    color: isDelete ? "white" : "rgb(255, 149, 0)" 
+                                    color: isInsert ? "white" : "rgb(255, 149, 0)" 
                                 }}
                             />
-                        )}
+                        )} */}
+                        <IoAdd 
+                            size={30} 
+                            style={{ 
+                                color: isInsert ? "white" : "rgb(255, 149, 0)" 
+                                }}
+                        />
                         
                         {isInsert ? (
                             <span className={styles.span}>カード追加</span>
@@ -219,9 +261,12 @@ export default function Footer({ isDelete, setIsDelete, handleDelete, handleDele
                     }
                     label="確認"
                 /> */}
-                <button>
+                <button onClick={handelOpenExplain}>
                     <BsQuestionCircle size={25} style={{ color: "rgb(255, 149, 0)" }}/>
                 </button>
+                <Popup open={showPopup} onClose={handlePopClose}>
+                    {popupContent} {/* 渡された内容に基づいて説明文を表示 */}
+                </Popup>
             </footer>
         </>
     )
