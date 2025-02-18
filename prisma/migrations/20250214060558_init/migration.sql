@@ -2,6 +2,7 @@
 CREATE TABLE "History" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "game" TEXT NOT NULL,
     "theme" TEXT DEFAULT 'テーマ未設定',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

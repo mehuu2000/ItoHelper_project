@@ -6,6 +6,7 @@ import { useState } from "react";
 import styles from "../styles/Login.module.css";
 import Image from "next/image";
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
@@ -20,7 +21,7 @@ export default function Certification() {
 
   //サインアップ関数
   const signUpUser = async (name, password) => {
-    console.log("signUpUser関数が呼び出されました");
+    // console.log("signUpUser関数が呼び出されました");
     if(!isPassword) {
       password = "";
     }
@@ -40,7 +41,7 @@ export default function Certification() {
         return { error: data.error };  // エラー時のレスポンス
       }
     } catch (error) {
-      console.error('サインアップエラー2: ', error);
+      // console.error('サインアップエラー2: ', error);
       return { error: 'サーバーエラー' };  // サーバーエラー
     }
   };
@@ -48,13 +49,13 @@ export default function Certification() {
   //認証開始
   const sendFormData = async (event) => {
     event.preventDefault(); 
-    console.log("sedFormData関数が呼び出されました");
-    console.log(`name:${name}`);
+    // console.log("sedFormData関数が呼び出されました");
+    // console.log(`name:${name}`);
     {isPassword ? (console.log(`password:${password}`)) : null};
-    console.log(`状態:${LS_Choose}`);
+    // console.log(`状態:${LS_Choose}`);
     if(name) {
       if(LS_Choose == 'login') {
-        console.log("ログイン処理開始");
+        // console.log("ログイン処理開始");
         //ログイン処理
         const responce = await signIn('credentials', {
           redirect: false,
@@ -63,22 +64,22 @@ export default function Certification() {
         });
     
         if (responce?.error) {
-          console.log("ログインエラー: ", responce.error);
+          // console.log("ログインエラー: ", responce.error);
         } else {
-          console.log("ログイン成功: ", responce);
+          // console.log("ログイン成功: ", responce);
           router.push('/home');  //要変更
         }
       } else if(LS_Choose == 'signup') {
-        console.log("サインアップ処理開始");
+        // console.log("サインアップ処理開始");
         //サインアップ処理
         const res = await signUpUser(name, password);
 
         if (res?.error) {
-          console.log("サインアップエラー1: ", res.error);
+          // console.log("サインアップエラー1: ", res.error);
         } else {
-          console.log("サインアップ成功: ", res);
+          // console.log("サインアップ成功: ", res);
           
-          console.log("ログイン処理を開始します");
+          // console.log("ログイン処理を開始します");
           const loginRes = await signIn('credentials', {
             redirect: false,
             username: name,
@@ -86,15 +87,15 @@ export default function Certification() {
           });
 
           if (loginRes?.error) {
-            console.log("ログインエラー: ", loginRes.error);
+            // console.log("ログインエラー: ", loginRes.error);
           } else {
-            console.log("ログイン成功: ", loginRes);
+            // console.log("ログイン成功: ", loginRes);
             router.push('/home');
           }
         }
       }
     } else {
-      console.log("名前を設定してください");
+      // console.log("名前を設定してください");
     }
   };
 
@@ -138,6 +139,7 @@ export default function Certification() {
               alt="ロゴ" 
               width={200} 
               height={150}
+              priority={true}
             />
           </div>
           {LS_Choose === "login" ? (
@@ -237,9 +239,9 @@ export default function Certification() {
                   </a>
                   </div>
                   <button className={styles.toLogin} onClick={changeSignup}>
-                    アカウントを登録していませんか？
+                    アカウントを登録していますか？
                     <span className="text-blue-400">
-                      ログイン
+                      サインアップ
                     </span>
                   </button>
                 <div />

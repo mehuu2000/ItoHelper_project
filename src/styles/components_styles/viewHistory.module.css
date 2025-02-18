@@ -1,0 +1,32 @@
+.view {
+    width: 100%;
+    margin-top: 10px;
+    color: black;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.h1 {
+    font-size: 24px;
+    margin: 0 auto;
+}
+
+.contents {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    overflow-x: auto;
+}
