@@ -23,6 +23,8 @@ const Popup = ({ open, onClose, children }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            padding: '10px',
+            overflow: 'auto',
           }}
           onClick={handleOutsideClick}
         >
@@ -32,7 +34,9 @@ const Popup = ({ open, onClose, children }) => {
               padding: '20px',
               borderRadius: '8px',
               position: 'relative',
-              maxWidth: '65%',
+              maxWidth: '70%',
+              maxHeight: '80vh', // 画面の80%を超えたらスクロール
+              overflowY: 'auto',
             }}
           >
             <button

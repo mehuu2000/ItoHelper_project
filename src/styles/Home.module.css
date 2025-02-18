@@ -61,7 +61,7 @@
 }
 
 .kind {
-    width: 200px;
+    width: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -69,8 +69,8 @@
 }
 
 .contena {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     border: 1px solid rgb(255, 149, 0);
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -84,6 +84,18 @@
 .p {
     word-wrap: break-word;
     overflow-wrap: break-word;
+}
+
+.history {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.toHistory {
+    padding: 3px 5px;
+    border: 1px solid rgb(255, 149, 0);
+    border-radius: 20px;
 }
 
 @media (orientation: landscape) {
