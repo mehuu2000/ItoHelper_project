@@ -1,0 +1,10 @@
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+
+.p {
+    font-size: 12px;
+}

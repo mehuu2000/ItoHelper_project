@@ -1,0 +1,113 @@
+.view {
+    width: 100vw;
+    height: calc(100vh - 48px - 48px);
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    background-color: white;
+    overflow: hidden;
+}
+
+
+.wid {
+    width: 100%;
+    padding: 0 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.line {
+    height: 4px;
+    background: linear-gradient(to right, rgba(255, 149, 0, 0.1), rgb(255, 149, 0));
+    flex-grow: 1;
+}
+.num {
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.content {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-grow: 1;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* 追加: iOSでのスムーズスクロール */
+}
+
+.card {
+    min-width: 140px;
+    max-width: 140px;
+    min-height: 190px;
+    max-height: 190px;
+    margin: 5px;
+    background-color: rgba(255, 149, 0, 0.2);
+    border: 2px solid rgb(255, 149, 0);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+    touch-action: pan-x;
+    /* touch-action: none; */
+    user-select: none;
+    cursor: pointer; /* 追加: カーソルをポインターに */
+    transition: opacity 0.2s; /* 追加: アニメーション効果 */
+}
+.card[data-dragging="true"] {
+    opacity: 0.8;
+    cursor: grabbing;
+}
+
+.upright {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: column;
+}
+.reverse {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-direction: column;
+    transform: rotate(180deg);
+}
+
+.border {
+    height: 1px;
+    width: 100%;
+    background-color: rgb(255, 149, 0);
+}
+
+.val {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin: 0 auto;
+}
+
+
+.deleteMode {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.deleteMode:hover {
+  background-color: rgba(255, 149, 0, 0.3);
+}
+
+.selected {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  border-color: rgb(255, 0, 0);
+}
+
