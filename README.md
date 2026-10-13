@@ -1,40 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Ito Helper
 
-## Getting Started
+物理カードで遊ぶ ito のための、小さな共有ボードです。宣言したことばと順番を、1台の画面に並べておけます。
 
-First, run the development server:
+React + Vite のフロントエンド専用アプリです。アプリのログイン、APIサーバー、データベース接続はありません。
 
-```bash
+## できること
+
+「遊び方」から、1枚ずつ宣言し、実物を裏向きで配置して同じ位置へアプリ登録するローカルルールの図を開けます。人数・1人の枚数は自由です。全カードを出してから実物をめくって順序を確認します。図はアプリに内包し、拡大・スクロールして閲覧できます。
+
+- お題を入力し、ことばのカードを好きな位置に何枚でも追加
+- 同じことばのカードを、それぞれ独立して編集・移動・削除
+- つまみのドラッグ、左右ボタン、キーボードで並べ替え
+- 向かい側からも読める180°の両向き表示
+- スマホの縦向きでは横向きを案内し、横長画面では操作部分をコンパクトに表示
+- 複数選択で削除、カードのリセット、直前の削除・リセットの取り消し
+- 現在のボードと設定を端末へ自動保存
+- ボードを履歴に保存し、検索・再表示・復元
+- JSON形式のバックアップ書き出し・読み込み
+
+参加者・持ち主・数字・勝敗は管理しません。カードの数字は手元の物理カードで扱います。
+
+横向き案内は幅599px以下の縦長・タッチ主体の画面が対象です。PCや幅600px以上のタブレット画面には表示しません。向きを変えてもボードや入力途中の内容を保持します。設定と縦向き案内の「全画面で横向きにする」から、対応環境でのみ全画面と横向き固定を要求できます。非対応・拒否時は手で端末を回してください。「横向き・全画面を解除」で解除できます。自動では全画面や固定を要求しません。
+
+## 開発
+
+Node.js 22.12以降（開発環境では24.19）を使用します。
+
+```sh
+npm ci --ignore-scripts
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+開発サーバーは127.0.0.1にのみバインドします。表示されたURLを同じ環境のブラウザで開いてください。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```sh
+npm run check
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+このコマンドで ESLint、モデル・保存・Reactフック・DOM操作テスト、静的ビルド、静的HTTPスモークチェックを実行します。HTTPチェックはサーバーとクライアントを同じプロセス環境で起動し、完了時に閉じます。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+DOM操作テストのダイアログは jsdom 上の簡易実装です。実ブラウザでのレイアウト、ネイティブのモーダル動作、ポインター操作、タッチ操作、端末ごとの保存動作を保証するものではありません。
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ビルドと静的配信
 
-## Learn More
+```sh
+npm run build
+npm run preview
+```
 
-To learn more about Next.js, take a look at the following resources:
+- 通常配信用: `dist/index.html` と `dist/assets/` を含む `dist/` 全体
+- 単一ファイルでのレビュー用: `dist/preview.html`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+通常利用では `dist/` をHTTPSの静的ホスティングへ配置し、固定のURLで使用してください。サーバー側のコード実行や環境変数、DB、認証設定は必要ありません。画面切替は `#board` / `#history` なので、サーバー側のルーティング設定も不要です。ホスティング提供者が設定する閲覧制限は、アプリ自体の認証とは別です。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+単一HTMLはJSとCSSを内包しますが、`file://` で開いたときの保存領域の扱いはブラウザに依存します。ブラウザやツールがファイル表示を許可しない場合もあります。日常利用の配信方法としては扱わず、HTTPSで検証してください。
 
-## Deploy on Vercel
+## 保存のしくみと注意
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+保存キーは `ito-helper.local.v1`。次の情報をバージョン付きのJSONとして localStorage に保存します。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- 現在のボード: ID、お題、更新日時、カード
+- カード: ID、ことば、順番だけ
+- 履歴: 独立したボードのスナップショット、保存日時
+- 設定: カード削除・リセット前の確認
+
+カード操作は即時保存、お題の入力は短い待機時間を置いて保存します。入力欄から離れるときや画面が隠れるときも保存を試みます。履歴保存で現在のボードは消えません。同じ内容を続けて保存しても履歴は重複しません。
+
+保存失敗は画面に表示し、画面内の内容はできるだけ保持します。破損したJSONや未対応バージョンは自動で初期化・上書きしません。元データを書き出したうえで、利用者が選んだ場合だけ置き換えます。別タブの更新を検出した場合は自動保存を止め、古い画面による上書きを避けます。同時に複数タブで編集する使い方は推奨しません。
+
+- 保存は端末・ブラウザ・URLのオリジンごとです。別ブラウザや別URLには自動移行されません。
+- ブラウザデータの消去、プライベートモード、保存容量やブラウザ設定によりデータが失われたり、保存できなかったりします。
+- 重要な履歴はJSONに書き出してください。履歴を自動的に間引く処理はありません。
+- バックアップ読み込みは、確認後に現在のボード・履歴・設定を置き換えます。
+- 端末へのデータ保存と、アプリのオフライン起動は別です。Service Worker/PWAは実装しておらず、オフライン起動は保証しません。
+- 旧アプリのサーバー履歴は移行しません。既存の外部DBを削除・更新する処理はありません。
+
+## 構成
+
+- `src/App.jsx`: 画面、ダイアログ、履歴、バックアップ
+- `src/components/Board.jsx`: 両向きカードと並べ替え
+- `src/hooks/useLocalBoard.js`: 自動保存、競合・エラー表示、復旧
+- `src/lib/board-model.js`: 不変な状態操作と検証
+- `src/lib/local-store.js`: 保存形式、読み込み、書き込み、明示的な置き換え
+- `tests/`: モデル・保存・フック・DOM操作の回帰テスト
+- `scripts/`: 単一HTML生成、テスト用ビルド、静的HTTPチェック
+
+画面切替のAPI仕様は [ScreenOrientation.lock()](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation/lock) と [requestFullscreen()](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullscreen) に従います。API対応と実スマホでの動作は環境に依存し、DOMテストやPC上のエミュレーションは実機での成功を保証しません。
